@@ -1,9 +1,26 @@
-import React from 'react';
-import reactDOM from 'react-dom'
-import "./styles/style.css"
+import React, { useEffect } from "react";
+import reactDOM from "react-dom";
+import styled from "styled-components";
+import BubbleSort from "./components/BubbleSort";
+
+const GlobalStyle = styled.div`
+  box-sizing: border-box;
+`;
+
+let generateRandNums = (num) => {
+  let randNums = [];
+  for (let i = 0; i < num; i++) {
+    randNums.push(Math.random());
+  }
+  return randNums;
+};
 
 const App = () => {
-    return <h1>Hello from react</h1>
-}
+  return (
+    <GlobalStyle>
+      <BubbleSort randNums={generateRandNums(100)} />
+    </GlobalStyle>
+  );
+};
 
-reactDOM.render(<App />, document.getElementById("root"))
+reactDOM.render(<App />, document.getElementById("root"));
