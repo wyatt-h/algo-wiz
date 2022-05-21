@@ -25,12 +25,14 @@ let generateRandNums = (num) => {
   return randNums;
 };
 
-const BubbleSort = ({ numOfStick }) => {
+const BubbleSort = ({ startSorting, numOfStick }) => {
   const randNums = generateRandNums(numOfStick);
 
   useEffect(() => {
-    setTimeout(useBubbleSort, 1000);
-  }, []);
+    if (startSorting) {
+      useBubbleSort();
+    }
+  }, [startSorting]);
 
   return (
     <AnimContainer className="anim-container">

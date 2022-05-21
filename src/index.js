@@ -7,9 +7,9 @@ const GlobalStyle = styled.div`
   box-sizing: border-box;
 `;
 
-const [startSorting, setStartSorting] = useState(false);
-
 const App = () => {
+  const [startSorting, setStartSorting] = useState(false);
+
   return (
     <GlobalStyle>
       <div className="row">
