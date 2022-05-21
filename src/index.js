@@ -7,18 +7,10 @@ const GlobalStyle = styled.div`
   box-sizing: border-box;
 `;
 
-let generateRandNums = (num) => {
-  let randNums = [];
-  for (let i = 0; i < num; i++) {
-    randNums.push(Math.random());
-  }
-  return randNums;
-};
-
 const App = () => {
   return (
     <GlobalStyle>
-      <BubbleSort randNums={generateRandNums(100)} />
+      <BubbleSort numOfStick={100} />
     </GlobalStyle>
   );
 };

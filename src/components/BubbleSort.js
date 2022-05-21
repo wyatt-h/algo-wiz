@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
+import useBubbleSort from "../hooks/useBubbleSort";
 
 const AnimContainer = styled.div`
   display: flex;
@@ -11,19 +12,30 @@ const AnimContainer = styled.div`
 
 const Stick = styled.div`
   height: ${(props) => 100 * props.height}%;
-  width: 0.2rem;
+  width: 100vw;
   background-color: #222;
-  margin: 5px;
+  margin: 0.08vw;
 `;
 
-const BubbleSort = ({ randNums }) => {
+let generateRandNums = (num) => {
+  let randNums = [];
+  for (let i = 0; i < num; i++) {
+    randNums.push(Math.random());
+  }
+  return randNums;
+};
+
+const BubbleSort = ({ numOfStick }) => {
+  const randNums = generateRandNums(numOfStick);
+
   useEffect(() => {
-    console.log(randNums);
+    setTimeout(useBubbleSort, 1000);
   }, []);
+
   return (
-    <AnimContainer>
+    <AnimContainer className="anim-container">
       {randNums.map((randNum, index) => (
-        <Stick key={index} height={randNum} />
+        <Stick className="stick" key={index} height={randNum} />
       ))}
     </AnimContainer>
   );
