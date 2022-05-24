@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import reactDOM from "react-dom";
 import styled from "styled-components";
-import BubbleSort from "./components/BubbleSort";
+import { createSortAnim } from "./components/ createSortAnim";
+import BubbleSortLayout from "./layout/BubbleSortLayout";
 
 const GlobalStyle = styled.div`
   box-sizing: border-box;
 `;
+
+const BubbleSort = createSortAnim(BubbleSortLayout, 100);
 
 const App = () => {
   const [startSorting, setStartSorting] = useState(false);

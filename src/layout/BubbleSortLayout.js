@@ -17,17 +17,7 @@ const Stick = styled.div`
   margin: 0.08vw;
 `;
 
-let generateRandNums = (num) => {
-  let randNums = [];
-  for (let i = 0; i < num; i++) {
-    randNums.push(Math.random());
-  }
-  return randNums;
-};
-
-const BubbleSort = ({ startSorting, numOfStick }) => {
-  const randNums = generateRandNums(numOfStick);
-
+const BubbleSortLayout = ({ startSorting, randNums }) => {
   useEffect(() => {
     if (startSorting) {
       useBubbleSort();
@@ -43,4 +33,4 @@ const BubbleSort = ({ startSorting, numOfStick }) => {
   );
 };
 
-export default BubbleSort;
+export default BubbleSortLayout;
