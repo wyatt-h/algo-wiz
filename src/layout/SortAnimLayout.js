@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import useBubbleSort from "../hooks/useBubbleSort";
 
 const AnimContainer = styled.div`
   display: flex;
@@ -17,13 +16,7 @@ const Stick = styled.div`
   margin: 0.08vw;
 `;
 
-const BubbleSortLayout = ({ startSorting, randNums }) => {
-  useEffect(() => {
-    if (startSorting) {
-      useBubbleSort();
-    }
-  }, [startSorting]);
-
+const SortAnimLayout = ({ randNums }) => {
   return (
     <AnimContainer className="anim-container">
       {randNums.map((randNum, index) => (
@@ -33,4 +26,4 @@ const BubbleSortLayout = ({ startSorting, randNums }) => {
   );
 };
 
-export default BubbleSortLayout;
+export default SortAnimLayout;

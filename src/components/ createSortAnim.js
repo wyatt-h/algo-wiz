@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import useBubbleSort from "../hooks/useBubbleSort";
 
 let generateRandNums = (num) => {
   let randNums = [];
@@ -12,8 +13,11 @@ export const createSortAnim = (Component, numOfStick) => {
   return (props) => {
     let randNums = generateRandNums(numOfStick);
 
-    console.log(numOfStick);
-    console.log(randNums);
+    useEffect(() => {
+      if (props.startSorting) {
+        useBubbleSort();
+      }
+    }, [props.startSorting]);
 
     return <Component {...props} randNums={randNums} />;
   };
