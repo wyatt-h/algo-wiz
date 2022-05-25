@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import reactDOM from "react-dom";
 import styled from "styled-components";
-import { createSortAnim } from "./components/ createSortAnim";
-import SortAnimLayout from "./layout/SortAnimLayout";
+import SortAnimLayout from "./components/SortAnimLayout";
 
 const GlobalStyle = styled.div`
   box-sizing: border-box;
@@ -14,14 +13,8 @@ const GlobalStyle = styled.div`
 const App = () => {
   const [startSorting, setStartSorting] = useState(false);
   const [sortingAlgo, setSortingAlgo] = useState("");
-  const [duration, setDuration] = useState();
-  const [numOfStick, setNumOfStick] = useState();
-  const SortAnim = createSortAnim(
-    SortAnimLayout,
-    numOfStick,
-    duration,
-    sortingAlgo
-  );
+  const [duration, setDuration] = useState(5);
+  const [numOfStick, setNumOfStick] = useState(50);
 
   return (
     <GlobalStyle>
@@ -66,7 +59,12 @@ const App = () => {
         </div>
       </div>
       <div className="row">
-        <SortAnim startSorting={startSorting} numOfStick={100} />
+        <SortAnimLayout
+          startSorting={startSorting}
+          duration={duration}
+          numOfStick={numOfStick}
+          sortingAlgo={sortingAlgo}
+        />
       </div>
     </GlobalStyle>
   );

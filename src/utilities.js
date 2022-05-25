@@ -7,3 +7,11 @@ export const swapHeight = (elementOne, elementTwo) => {
   elementOne.style.height = `${elementTwo.offsetHeight}px`;
   elementTwo.style.height = `${heightOne}px`;
 };
+
+export const generateRandNums = (num) => {
+  let randNums = [];
+  for (let i = 0; i < num; i++) {
+    randNums.push(Math.random());
+  }
+  return randNums;
+};
