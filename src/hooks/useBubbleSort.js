@@ -1,6 +1,6 @@
 import { sleep, swapHeight } from "../utilities";
 
-const useBubbleSort = async () => {
+const useBubbleSort = async (duration) => {
   const sticks = document.querySelectorAll(".stick");
   for (let i = 0; i < sticks.length; i++) {
     sticks[i].classList.add("on-sorted");
@@ -12,7 +12,7 @@ const useBubbleSort = async () => {
         swapHeight(sticks[i], sticks[j]);
         height_i = sticks[i].offsetHeight;
       }
-      await sleep(10);
+      await sleep(duration);
       sticks[j].classList.remove("on-compared");
     }
     sticks[i].classList.remove("on-sorted");

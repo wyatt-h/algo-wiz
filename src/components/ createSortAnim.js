@@ -11,7 +11,12 @@ let generateRandNums = (num) => {
   return randNums;
 };
 
-export const createSortAnim = (Component, numOfStick, sortingAlgo) => {
+export const createSortAnim = (
+  Component,
+  numOfStick,
+  duration,
+  sortingAlgo
+) => {
   return (props) => {
     let randNums = generateRandNums(numOfStick);
 
@@ -19,13 +24,13 @@ export const createSortAnim = (Component, numOfStick, sortingAlgo) => {
       if (props.startSorting) {
         switch (sortingAlgo) {
           case "bubble sort":
-            useBubbleSort();
+            useBubbleSort(duration);
             break;
           case "insertion sort":
-            useInsertionSort();
+            useInsertionSort(duration);
             break;
           case "selection sort":
-            useSelectionSort();
+            useSelectionSort(duration);
             break;
           default:
             break;

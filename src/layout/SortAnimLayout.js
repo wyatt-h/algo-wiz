@@ -5,8 +5,7 @@ const AnimContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  width: 100%;
-  height: 100vh;
+  height: 80vh;
 
   .on-sorted {
     background-color: green;

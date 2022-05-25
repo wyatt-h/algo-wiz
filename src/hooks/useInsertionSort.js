@@ -1,6 +1,6 @@
 import { sleep, swapHeight } from "../utilities";
 
-const useInsertionSort = async () => {
+const useInsertionSort = async (duration) => {
   const sticks = document.querySelectorAll(".stick");
   for (let i = 1; i < sticks.length; i++) {
     for (let temp = i; temp >= 1; temp--) {
@@ -11,7 +11,7 @@ const useInsertionSort = async () => {
       }
       sticks[temp].classList.add("on-sorted");
       sticks[temp - 1].classList.add("on-compared");
-      await sleep(5);
+      await sleep(duration);
       swapHeight(sticks[temp], sticks[temp - 1]);
       sticks[temp].classList.remove("on-sorted");
       sticks[temp - 1].classList.remove("on-compared");

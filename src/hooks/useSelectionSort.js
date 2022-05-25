@@ -1,6 +1,6 @@
 import { sleep, swapHeight } from "../utilities";
 
-const useSelectionSort = async () => {
+const useSelectionSort = async (duration) => {
   const sticks = document.querySelectorAll(".stick");
   for (let i = 0; i < sticks.length; i++) {
     console.log("outer loop");
@@ -17,7 +17,7 @@ const useSelectionSort = async () => {
         minStickIndex = j;
         sticks[minStickIndex].classList.add("on-swap");
       }
-      await sleep(10);
+      await sleep(duration);
       sticks[j].classList.remove("on-compared");
     }
     swapHeight(sticks[minStickIndex], sticks[i]);
