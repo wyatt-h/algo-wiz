@@ -15,6 +15,10 @@ const AnimContainer = styled.div`
   .on-compared {
     background-color: red;
   }
+
+  .on-swap {
+    background-color: blue;
+  }
 `;
 
 const Stick = styled.div`
