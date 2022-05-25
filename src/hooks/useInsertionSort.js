@@ -1,10 +1,7 @@
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+import { sleep, swapHeight } from "../utilities";
 
 const useInsertionSort = async () => {
   const sticks = document.querySelectorAll(".stick");
-  await sleep(1000);
   for (let i = 1; i < sticks.length; i++) {
     for (let temp = i; temp >= 1; temp--) {
       let height_temp = sticks[temp].offsetHeight;
@@ -15,8 +12,7 @@ const useInsertionSort = async () => {
       sticks[temp].classList.add("on-sorted");
       sticks[temp - 1].classList.add("on-compared");
       await sleep(5);
-      sticks[temp].style.height = `${height_temp_nxt}px`;
-      sticks[temp - 1].style.height = `${height_temp}px`;
+      swapHeight(sticks[temp], sticks[temp - 1]);
       sticks[temp].classList.remove("on-sorted");
       sticks[temp - 1].classList.remove("on-compared");
     }

@@ -1,6 +1,4 @@
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+import { sleep, swapHeight } from "../utilities";
 
 const useBubbleSort = async () => {
   const sticks = document.querySelectorAll(".stick");
@@ -11,8 +9,7 @@ const useBubbleSort = async () => {
       let height_j = sticks[j].offsetHeight;
       sticks[j].classList.add("on-compared");
       if (height_i > height_j) {
-        sticks[i].style.height = `${height_j}px`;
-        sticks[j].style.height = `${height_i}px`;
+        swapHeight(sticks[i], sticks[j]);
         height_i = sticks[i].offsetHeight;
       }
       await sleep(10);

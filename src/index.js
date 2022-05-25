@@ -8,18 +8,17 @@ const GlobalStyle = styled.div`
   box-sizing: border-box;
 `;
 
-const SortAnim = createSortAnim(SortAnimLayout, 100, "insertion sort");
+const SortAnim = createSortAnim(SortAnimLayout, 100, "bubble sort");
 
 const App = () => {
   const [startSorting, setStartSorting] = useState(false);
+  const [sortingAlgo, setSortingAlgo] = useState("");
 
   return (
     <GlobalStyle>
       <div className="row">
-        <button
-          className="btn btn-lg"
-          onClick={() => setStartSorting(!startSorting)}
-        >
+        <input type="text" />
+        <button className="btn" onClick={() => setStartSorting(!startSorting)}>
           Click to Start
         </button>
       </div>
