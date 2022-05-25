@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const AnimContainer = styled.div`
@@ -7,6 +7,14 @@ const AnimContainer = styled.div`
   align-items: flex-end;
   width: 100%;
   height: 100vh;
+
+  .on-sorted {
+    background-color: green;
+  }
+
+  .on-compared {
+    background-color: red;
+  }
 `;
 
 const Stick = styled.div`

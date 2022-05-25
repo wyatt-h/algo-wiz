@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import useBubbleSort from "../hooks/useBubbleSort";
+import useInsertionSort from "../hooks/useInsertionSort";
 
 let generateRandNums = (num) => {
   let randNums = [];
@@ -9,13 +10,22 @@ let generateRandNums = (num) => {
   return randNums;
 };
 
-export const createSortAnim = (Component, numOfStick) => {
+export const createSortAnim = (Component, numOfStick, sortingAlgo) => {
   return (props) => {
     let randNums = generateRandNums(numOfStick);
 
     useEffect(() => {
       if (props.startSorting) {
-        useBubbleSort();
+        switch (sortingAlgo) {
+          case "bubble sort":
+            useBubbleSort();
+            break;
+          case "insertion sort":
+            useInsertionSort();
+            break;
+          default:
+            break;
+        }
       }
     }, [props.startSorting]);
 

@@ -8,7 +8,7 @@ const GlobalStyle = styled.div`
   box-sizing: border-box;
 `;
 
-const SortAnim = createSortAnim(SortAnimLayout, 100);
+const SortAnim = createSortAnim(SortAnimLayout, 100, "insertion sort");
 
 const App = () => {
   const [startSorting, setStartSorting] = useState(false);
