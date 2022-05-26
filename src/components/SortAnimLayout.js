@@ -9,13 +9,13 @@ const AnimContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  height: 80vh;
+  width: 60vw;
+  height: 60vw;
 
   .stick {
-    height: ${(props) => 100 * props.height}%;
-    width: 100vw;
     background-color: #222;
     margin: 0.08vw;
+    flex-grow: 1;
   }
 
   .on-sorted {
@@ -36,26 +36,28 @@ const SortAnimLayout = ({
   numOfStick,
   duration,
   sortingAlgo,
+  setStartSorting,
 }) => {
-  useEffect(() => {
+  useEffect(async () => {
     if (startSorting) {
       switch (sortingAlgo) {
-        case "bubble sort":
-          useBubbleSort(duration);
+        case "bubble":
+          await useBubbleSort(duration);
           break;
-        case "insertion sort":
-          useInsertionSort(duration);
+        case "insertion":
+          await useInsertionSort(duration);
           break;
-        case "selection sort":
-          useSelectionSort(duration);
+        case "selection":
+          await useSelectionSort(duration);
           break;
         default:
           break;
       }
     }
   }, [startSorting]);
+
   return (
-    <AnimContainer className="anim-container">
+    <AnimContainer>
       {generateRandNums(numOfStick).map((randNum, index) => (
         <div
           className="stick"
