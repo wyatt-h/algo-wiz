@@ -55,6 +55,11 @@ const SortAnimCard = () => {
   const [duration, setDuration] = useState(5);
   const [numOfStick, setNumOfStick] = useState(50);
 
+  const resetAnim = () => {
+    document.querySelector(".sort-btn").classList.remove("on-sorting");
+    setStartSorting(false);
+  };
+
   useEffect(() => {
     const sortBtn = document.querySelector(".sort-btn");
     if (startSorting) {
@@ -74,7 +79,10 @@ const SortAnimCard = () => {
           <div className="col-sm-9 input-box">
             <select
               className="custom-select custom-select-lg sort-algo-dropdown"
-              onChange={(e) => setSortingAlgo(e.currentTarget.value)}
+              onChange={(e) => {
+                setSortingAlgo(e.currentTarget.value);
+                resetAnim();
+              }}
             >
               <option>Choose sorting algorithm</option>
               <option value="bubble">Bubble Sort</option>
@@ -96,7 +104,10 @@ const SortAnimCard = () => {
                   value={duration}
                   name="duration"
                   placeholder="choose animation duration..."
-                  onChange={(e) => setDuration(e.target.value)}
+                  onChange={(e) => {
+                    setDuration(e.target.value);
+                    resetAnim();
+                  }}
                 />
               </div>
             </div>
@@ -113,7 +124,10 @@ const SortAnimCard = () => {
                   value={numOfStick}
                   name="numOfStick"
                   placeholder="choose the number of sticks..."
-                  onChange={(e) => setNumOfStick(e.target.value)}
+                  onChange={(e) => {
+                    setNumOfStick(e.target.value);
+                    resetAnim();
+                  }}
                 />
               </div>
             </div>
@@ -131,7 +145,6 @@ const SortAnimCard = () => {
       <div className="row">
         <SortAnimLayout
           startSorting={startSorting}
-          setStartSorting={setStartSorting}
           duration={duration}
           numOfStick={numOfStick}
           sortingAlgo={sortingAlgo}

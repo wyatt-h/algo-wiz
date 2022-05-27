@@ -9,8 +9,8 @@ const AnimContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  width: 60vw;
-  height: 60vw;
+  width: 60vh;
+  height: 60vh;
 
   .stick {
     background-color: #222;
@@ -36,7 +36,6 @@ const SortAnimLayout = ({
   numOfStick,
   duration,
   sortingAlgo,
-  setStartSorting,
 }) => {
   useEffect(async () => {
     if (startSorting) {
