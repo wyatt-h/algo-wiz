@@ -4,6 +4,7 @@ import { generateRandNums } from "../utilities";
 import useBubbleSort from "../hooks/useBubbleSort";
 import useInsertionSort from "../hooks/useInsertionSort";
 import useSelectionSort from "../hooks/useSelectionSort";
+import useMergeSort from "../hooks/useMergeSort";
 
 const AnimContainer = styled.div`
   display: flex;
@@ -48,6 +49,9 @@ const SortAnimLayout = ({
           break;
         case "selection":
           await useSelectionSort(duration);
+          break;
+        case "merge":
+          await useMergeSort(duration);
           break;
         default:
           break;

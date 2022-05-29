@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import SortAnimLayout from "./SortAnimLayout";
+import { Box, TextField, Slider } from "@mui/material";
 
 const GlobalStyle = styled.section`
   box-sizing: border-box;
@@ -55,6 +56,10 @@ const SortAnimCard = () => {
   const [duration, setDuration] = useState(5);
   const [numOfStick, setNumOfStick] = useState(50);
 
+  function valuetext(value) {
+    return `${value}°C`;
+  }
+
   const resetAnim = () => {
     document.querySelector(".sort-btn").classList.remove("on-sorting");
     setStartSorting(false);
@@ -71,6 +76,27 @@ const SortAnimCard = () => {
 
   return (
     <GlobalStyle>
+      <Box
+        component="form"
+        sx={{
+          "& .MuiTextField-root": { m: 1, width: "25ch" },
+        }}
+        noValidate
+        autoComplete="off"
+      >
+        <TextField required id="outlined-required" label="Animation Duration" />
+        <TextField required id="outlined-required" label="# of Sticks" />
+        <Slider
+          aria-label="# of Sticks"
+          defaultValue={50}
+          getAriaValueText={valuetext}
+          valueLabelDisplay="auto"
+          step={10}
+          marks
+          min={20}
+          max={200}
+        />
+      </Box>
       <div className="row">
         <div className="form-group row">
           <label htmlFor="" className="col-form-label col-sm-3">
@@ -88,6 +114,7 @@ const SortAnimCard = () => {
               <option value="bubble">Bubble Sort</option>
               <option value="insertion">Insertion Sort</option>
               <option value="selection">Selection Sort</option>
+              <option value="merge">Merge Sort</option>
             </select>
           </div>
         </div>
