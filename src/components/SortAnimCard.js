@@ -1,7 +1,18 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import SortAnimLayout from "./SortAnimLayout";
-import { Box, TextField, Slider } from "@mui/material";
+import {
+  Box,
+  TextField,
+  Slider,
+  FormControl,
+  Select,
+  Stack,
+  MenuItem,
+  Typography,
+  InputLabel,
+  Button,
+} from "@mui/material";
 
 const GlobalStyle = styled.section`
   box-sizing: border-box;
@@ -33,7 +44,7 @@ const GlobalStyle = styled.section`
     align-items: center;
   }
 
-  .sort-btn {
+  /* .sort-btn {
     background-color: #ffc857;
     color: #1f2041;
     width: 50%;
@@ -42,11 +53,42 @@ const GlobalStyle = styled.section`
   .sort-btn.on-sorting {
     background-color: #1f2041;
     color: #ffc857;
-  }
+  } */
 
   .sort-algo-dropdown {
     padding: 0.5rem;
     border-radius: 0.375rem;
+  }
+
+  .param-form {
+    width: 40;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-row-gap: 0.5rem;
+    grid-column-gap: 1rem;
+    align-content: center;
+    justify-content: center;
+  }
+
+  .duration-input {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+  }
+
+  .sorting-algo-input {
+    grid-column: 3 / 5;
+    grid-row: 1 / 2;
+  }
+
+  .stick-number-input {
+    grid-column: 1 / 4;
+    grid-row: 2 / 3;
+  }
+
+  .submit-btn {
+    grid-column: 4 / 5;
+    grid-row: 2 / 3;
   }
 `;
 
@@ -54,11 +96,7 @@ const SortAnimCard = () => {
   const [startSorting, setStartSorting] = useState(false);
   const [sortingAlgo, setSortingAlgo] = useState("");
   const [duration, setDuration] = useState(5);
-  const [numOfStick, setNumOfStick] = useState(50);
-
-  function valuetext(value) {
-    return `${value}°C`;
-  }
+  const [numOfStick, setNumOfStick] = useState(60);
 
   const resetAnim = () => {
     document.querySelector(".sort-btn").classList.remove("on-sorting");
@@ -76,99 +114,67 @@ const SortAnimCard = () => {
 
   return (
     <GlobalStyle>
-      <Box
-        component="form"
-        sx={{
-          "& .MuiTextField-root": { m: 1, width: "25ch" },
-        }}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField required id="outlined-required" label="Animation Duration" />
-        <TextField required id="outlined-required" label="# of Sticks" />
-        <Slider
-          aria-label="# of Sticks"
-          defaultValue={50}
-          getAriaValueText={valuetext}
-          valueLabelDisplay="auto"
-          step={10}
-          marks
-          min={20}
-          max={200}
-        />
-      </Box>
-      <div className="row">
-        <div className="form-group row">
-          <label htmlFor="" className="col-form-label col-sm-3">
-            Sorting Algorithm
-          </label>
-          <div className="col-sm-9 input-box">
-            <select
-              className="custom-select custom-select-lg sort-algo-dropdown"
+      <Box component="form" noValidate autoComplete="off">
+        <div className="param-form">
+          <TextField
+            required
+            id="outlined-required"
+            label="Animation Duration(ms)"
+            value={duration}
+            onChange={(e) => {
+              setDuration(e.target.value);
+              resetAnim();
+            }}
+            className="duration-input"
+          />
+          <FormControl fullWidth className="sorting-algo-input">
+            <InputLabel id="sorting-algo-select-label">
+              Sorting Algorithm
+            </InputLabel>
+            <Select
+              required
+              labelId="sorting-algo-select-label"
+              id="sorting-algo-select"
+              value={sortingAlgo}
+              label="SortingAlgorithm"
               onChange={(e) => {
-                setSortingAlgo(e.currentTarget.value);
+                setSortingAlgo(e.target.value);
                 resetAnim();
               }}
             >
-              <option>Choose sorting algorithm</option>
-              <option value="bubble">Bubble Sort</option>
-              <option value="insertion">Insertion Sort</option>
-              <option value="selection">Selection Sort</option>
-              <option value="merge">Merge Sort</option>
-            </select>
-          </div>
-        </div>
-        <div className="row">
-          <div className="form-group col-md-6">
-            <div className="row">
-              <label htmlFor="" className="col-sm-4 col-form-label">
-                Animation Duration
-              </label>
-              <div className="col-sm-8 input-box">
-                <input
-                  type="text"
-                  className="form-control"
-                  value={duration}
-                  name="duration"
-                  placeholder="choose animation duration..."
-                  onChange={(e) => {
-                    setDuration(e.target.value);
-                    resetAnim();
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="form-group col-md-6">
-            <div className="row">
-              <label htmlFor="" className="col-sm-4 col-form-label">
-                Number of Sticks
-              </label>
-              <div className="col-sm-8 input-box">
-                <input
-                  type="text"
-                  className="form-control"
-                  value={numOfStick}
-                  name="numOfStick"
-                  placeholder="choose the number of sticks..."
-                  onChange={(e) => {
-                    setNumOfStick(e.target.value);
-                    resetAnim();
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="form-group row submit-box">
-          <button
-            className="btn sort-btn"
+              <MenuItem value={"bubble"}>Bubble Sort</MenuItem>
+              <MenuItem value={"insertion"}>Insertion Sort</MenuItem>
+              <MenuItem value={"selection"}>Selection Sort</MenuItem>
+              <MenuItem value={"merge"}>Merge Sort</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl fullWidth className="stick-number-input">
+            <Typography id="input-slider" gutterBottom>
+              Number of Sticks
+            </Typography>
+            <Slider
+              aria-labelledby="input-slider"
+              valueLabelDisplay="auto"
+              value={numOfStick}
+              onChange={(e) => {
+                setNumOfStick(e.target.value);
+                resetAnim();
+              }}
+              step={30}
+              marks
+              min={30}
+              max={150}
+            />
+          </FormControl>
+          <Button
+            variant="outlined"
+            className="submit-btn btn sort-btn"
             onClick={() => setStartSorting(!startSorting)}
           >
             {startSorting ? "Reset" : "Click to Start"}
-          </button>
+          </Button>
         </div>
-      </div>
+      </Box>
       <div className="row">
         <SortAnimLayout
           startSorting={startSorting}
