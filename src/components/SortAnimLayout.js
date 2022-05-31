@@ -39,19 +39,20 @@ const SortAnimLayout = ({
   sortingAlgo,
 }) => {
   useEffect(async () => {
+    const ms = duration ? duration : 5;
     if (startSorting) {
       switch (sortingAlgo) {
         case "bubble":
-          await useBubbleSort(duration);
+          await useBubbleSort(ms);
           break;
         case "insertion":
-          await useInsertionSort(duration);
+          await useInsertionSort(ms);
           break;
         case "selection":
-          await useSelectionSort(duration);
+          await useSelectionSort(ms);
           break;
         case "merge":
-          await useMergeSort(duration);
+          await useMergeSort(ms);
           break;
         default:
           break;

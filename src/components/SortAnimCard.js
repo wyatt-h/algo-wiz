@@ -7,11 +7,12 @@ import {
   Slider,
   FormControl,
   Select,
-  Stack,
   MenuItem,
   Typography,
   InputLabel,
   Button,
+  createTheme,
+  ThemeProvider,
 } from "@mui/material";
 
 const GlobalStyle = styled.section`
@@ -24,8 +25,8 @@ const GlobalStyle = styled.section`
   align-items: center;
   flex-direction: column;
   font-size: 1rem;
-  background-color: #119da4;
-  color: #ffc857;
+  background-color: #d3d0cb;
+  color: #587b7f;
 
   .form-control {
     padding: 0.2rem 0.5rem;
@@ -95,8 +96,17 @@ const GlobalStyle = styled.section`
 const SortAnimCard = () => {
   const [startSorting, setStartSorting] = useState(false);
   const [sortingAlgo, setSortingAlgo] = useState("");
-  const [duration, setDuration] = useState(5);
+  const [duration, setDuration] = useState();
   const [numOfStick, setNumOfStick] = useState(60);
+
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#587b7f",
+        contrastText: "d3d0cb",
+      },
+    },
+  });
 
   const resetAnim = () => {
     document.querySelector(".sort-btn").classList.remove("on-sorting");
@@ -114,75 +124,79 @@ const SortAnimCard = () => {
 
   return (
     <GlobalStyle>
-      <Box component="form" noValidate autoComplete="off">
-        <div className="param-form">
-          <TextField
-            required
-            id="outlined-required"
-            label="Animation Duration(ms)"
-            value={duration}
-            onChange={(e) => {
-              setDuration(e.target.value);
-              resetAnim();
-            }}
-            className="duration-input"
-          />
-          <FormControl fullWidth className="sorting-algo-input">
-            <InputLabel id="sorting-algo-select-label">
-              Sorting Algorithm
-            </InputLabel>
-            <Select
+      <ThemeProvider theme={theme}>
+        <Box component="form" noValidate autoComplete="off">
+          <div className="param-form">
+            <TextField
               required
-              labelId="sorting-algo-select-label"
-              id="sorting-algo-select"
-              value={sortingAlgo}
-              label="SortingAlgorithm"
+              id="outlined-required"
+              label="Animation Duration(ms)"
+              color="primary"
+              value={duration}
               onChange={(e) => {
-                setSortingAlgo(e.target.value);
+                setDuration(e.target.value);
                 resetAnim();
               }}
-            >
-              <MenuItem value={"bubble"}>Bubble Sort</MenuItem>
-              <MenuItem value={"insertion"}>Insertion Sort</MenuItem>
-              <MenuItem value={"selection"}>Selection Sort</MenuItem>
-              <MenuItem value={"merge"}>Merge Sort</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl fullWidth className="stick-number-input">
-            <Typography id="input-slider" gutterBottom>
-              Number of Sticks
-            </Typography>
-            <Slider
-              aria-labelledby="input-slider"
-              valueLabelDisplay="auto"
-              value={numOfStick}
-              onChange={(e) => {
-                setNumOfStick(e.target.value);
-                resetAnim();
-              }}
-              step={30}
-              marks
-              min={30}
-              max={150}
+              className="duration-input"
             />
-          </FormControl>
-          <Button
-            variant="outlined"
-            className="submit-btn btn sort-btn"
-            onClick={() => setStartSorting(!startSorting)}
-          >
-            {startSorting ? "Reset" : "Click to Start"}
-          </Button>
+            <FormControl fullWidth className="sorting-algo-input">
+              <InputLabel color="primary" id="sorting-algo-select-label">
+                Sorting Algorithm
+              </InputLabel>
+              <Select
+                required
+                labelId="sorting-algo-select-label"
+                color="primary"
+                id="sorting-algo-select"
+                value={sortingAlgo}
+                label="SortingAlgorithm"
+                onChange={(e) => {
+                  setSortingAlgo(e.target.value);
+                  resetAnim();
+                }}
+              >
+                <MenuItem value={"bubble"}>Bubble Sort</MenuItem>
+                <MenuItem value={"insertion"}>Insertion Sort</MenuItem>
+                <MenuItem value={"selection"}>Selection Sort</MenuItem>
+                <MenuItem value={"merge"}>Merge Sort</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl fullWidth className="stick-number-input">
+              <Typography id="input-slider" gutterBottom>
+                Number of Sticks
+              </Typography>
+              <Slider
+                aria-labelledby="input-slider"
+                valueLabelDisplay="auto"
+                value={numOfStick}
+                onChange={(e) => {
+                  setNumOfStick(e.target.value);
+                  resetAnim();
+                }}
+                step={30}
+                marks
+                min={30}
+                max={150}
+              />
+            </FormControl>
+            <Button
+              variant="outlined"
+              className="submit-btn btn sort-btn"
+              onClick={() => setStartSorting(!startSorting)}
+            >
+              {startSorting ? "Reset" : "Click to Start"}
+            </Button>
+          </div>
+        </Box>
+        <div className="row">
+          <SortAnimLayout
+            startSorting={startSorting}
+            duration={duration}
+            numOfStick={numOfStick}
+            sortingAlgo={sortingAlgo}
+          />
         </div>
-      </Box>
-      <div className="row">
-        <SortAnimLayout
-          startSorting={startSorting}
-          duration={duration}
-          numOfStick={numOfStick}
-          sortingAlgo={sortingAlgo}
-        />
-      </div>
+      </ThemeProvider>
     </GlobalStyle>
   );
 };
