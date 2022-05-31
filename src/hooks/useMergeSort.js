@@ -1,6 +1,7 @@
 import { sleep, swapHeight } from "../utilities";
 
-const merge = (arrL, arrR) => {
+const merge = async (arr, arrL, arrR, start) => {
+  console.log("merge");
   if (arrL.length === 0) {
     return arrR;
   }
@@ -10,39 +11,56 @@ const merge = (arrL, arrR) => {
   let pointerL = 0;
   let pointerR = 0;
   let result = [];
+  let index = start;
+  let temp_height;
+  console.log("arrL: ", arrL, ", arrR: ", arrR);
   while (pointerL < arrL.length || pointerR < arrR.length) {
     console.log(arrL[pointerL]);
     console.log(arrR[pointerR]);
-    console.log(arrL[pointerL].offsetHeight);
-    console.log(arrR[pointerR].offsetHeight);
-    if (
-      pointerR === arrR.length ||
-      arrL[pointerL].offsetHeight < arrR[pointerR].offsetHeight
-    ) {
+    if (pointerR === arrR.length) {
+      temp_height = arrL[pointerL].offsetHeight;
       result.push(arrL[pointerL++]);
-    } else if (
-      pointerL === arrL.length ||
-      arrR[pointerR].offsetHeight < arrL[pointerL].offsetHeight
-    ) {
+      // arr[index++].style.height = arrL[pointerL++].offsetHeight;
+    } else if (pointerL === arrL.length) {
+      temp_height = arrR[pointerR].offsetHeight;
       result.push(arrR[pointerR++]);
+      // arr[index++].style.height = arrR[pointerR++].offsetHeight;
+    } else if (arrL[pointerL].offsetHeight < arrR[pointerR].offsetHeight) {
+      temp_height = arrL[pointerL].offsetHeight;
+      result.push(arrL[pointerL++]);
+      // arr[index++].style.height = arrL[pointerL++].offsetHeight;
+    } else {
+      temp_height = arrR[pointerR].offsetHeight;
+      result.push(arrR[pointerR++]);
+      // arr[index++].style.height = arrR[pointerR++].offsetHeight;
     }
+    arr[index].classList.add("on-sorted");
+    await sleep(1000);
+    arr[index].classList.remove("on-sorted");
+    arr[index++].style.height = `${temp_height}px`;
+    console.log(result);
+    console.log(pointerL, pointerR);
+    console.log(arrL.length, arrR.length);
   }
   return result;
 };
 
-const mergeSortHelper = (arr, left, right) => {
-  if (right - left <= 1) {
-    return arr.slice(left, right);
+const mergeSortHelper = async (arr, start, end) => {
+  console.log("split");
+  if (end - start <= 1) {
+    return arr.slice(start, end);
   }
-  const mid = parseInt((left + right) / 2);
+  const mid = parseInt((start + end) / 2);
   console.log("one more layer");
-  console.log("left: ", left, ", mid: ", mid, ", right: ", right);
-  console.log(arr.slice(left, mid));
-  console.log(arr.slice(mid, right));
+  console.log("left: ", start, ", mid: ", mid, ", right: ", end);
+  console.log(arr.slice(start, mid));
+  console.log(arr.slice(mid, end));
 
-  const result = merge(
-    mergeSortHelper(arr, left, mid),
-    mergeSortHelper(arr, mid, right)
+  const result = await merge(
+    arr,
+    await mergeSortHelper(arr, start, mid),
+    await mergeSortHelper(arr, mid, end),
+    start
   );
   return result;
 };
@@ -55,7 +73,8 @@ const useMergeSort = async (duration) => {
   const sticks = document.querySelectorAll(".stick");
   const sortBtn = document.querySelector(".sort-btn");
   await Array.from(sortBtn.classList).includes("on-sorting");
-  const result = mergeSortHelper(Array.from(sticks), 0, sticks.length);
+  const result = await mergeSortHelper(Array.from(sticks), 0, sticks.length);
+  result.forEach((stick) => console.log(stick.offsetHeight));
   console.log(result);
   return result;
   // for (let i = 0; i < sticks.length; i++) {
