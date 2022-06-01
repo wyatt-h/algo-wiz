@@ -1,6 +1,7 @@
 import { sleep } from "../utilities";
 
 const merge = async (arr, helper, low, mid, high, duration) => {
+  const sortBtn = document.querySelector(".sort-btn");
   for (let i = low; i <= high; i++) {
     helper[i] = arr[i].offsetHeight;
   }
@@ -9,6 +10,7 @@ const merge = async (arr, helper, low, mid, high, duration) => {
   let helperR = mid + 1;
   let curr = low;
   while (helperL <= mid && helperR <= high) {
+    if (!Array.from(sortBtn.classList).includes("on-sorting")) break;
     arr[curr].classList.add("on-sorted");
     await sleep(duration);
     arr[curr].classList.remove("on-sorted");
@@ -21,6 +23,7 @@ const merge = async (arr, helper, low, mid, high, duration) => {
 
   let remaining = mid - helperL;
   for (let i = 0; i <= remaining; i++) {
+    if (!Array.from(sortBtn.classList).includes("on-sorting")) break;
     arr[curr].classList.add("on-sorted");
     await sleep(duration);
     arr[curr + i].style.height = `${helper[helperL + i]}px`;

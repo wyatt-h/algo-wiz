@@ -3,22 +3,25 @@ import { sleep, swapHeight } from "../utilities";
 const useBubbleSort = async (duration) => {
   const sticks = document.querySelectorAll(".stick");
   const sortBtn = document.querySelector(".sort-btn");
+  let flag = false;
   await Array.from(sortBtn.classList).includes("on-sorting");
   for (let i = 0; i < sticks.length; i++) {
-    sticks[i].classList.add("on-sorted");
-    let height_i = sticks[i].offsetHeight;
-    for (let j = i + 1; j < sticks.length; j++) {
+    flag = false;
+    for (let j = 0; j < sticks.length - 1; j++) {
       if (!Array.from(sortBtn.classList).includes("on-sorting")) break;
-      let height_j = sticks[j].offsetHeight;
-      sticks[j].classList.add("on-compared");
+      let height_i = sticks[j].offsetHeight;
+      let height_j = sticks[j + 1].offsetHeight;
+      sticks[j].classList.add("on-sorted");
+      sticks[j + 1].classList.add("on-compared");
       if (height_i > height_j) {
-        swapHeight(sticks[i], sticks[j]);
-        height_i = sticks[i].offsetHeight;
+        flag = true;
+        swapHeight(sticks[j], sticks[j + 1]);
       }
       await sleep(duration);
-      sticks[j].classList.remove("on-compared");
+      sticks[j].classList.remove("on-sorted");
+      sticks[j + 1].classList.remove("on-compared");
     }
-    sticks[i].classList.remove("on-sorted");
+    if (!flag) break;
   }
 };
 
